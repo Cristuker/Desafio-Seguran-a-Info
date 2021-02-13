@@ -1,7 +1,11 @@
 # Desafio-Seguran-a-Info
-Projeto para a aula de Segurança de Informação
+Projeto para a aula de Segurança de Informação.
+Controle de Acesso: identificação e autenticação
 
-### Requerimentos
+
+## Requerimentos
+
+*** Identificação - colocar regras de identificação de nomes, não permitir id iguais. ***
 
 [] - Autenticação - o sistema após receber o pré-cadastro, deverá enviar através de e-mail o link para o primeiro acesso (identificação) escolhida com a senha (autenticação). Atenção esta senha deverá ser criada pelo próprio sistema de forma randômica. O acesso deve ser realizado em X tempo caso contrário o login e senha serão cancelados.
 
