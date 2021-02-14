@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "docker-compose up -d && nodemon --inspect=0.0.0.0 src/app.js"
+    "dev": "docker-compose up -d && nodemon --inspect=0.0.0.0 src/app.js",
+    "migrate": "docker-compose up -d && sucrase-node src/app/database/runMigrations.js"
   },
   "repository": {
     "type": "git",
@@ -25,6 +26,7 @@
     "express": "^4.17.1",
     "nodemon": "^2.0.7",
     "pg": "^8.5.1",
+    "postgres-migrations": "^5.1.1",
     "sucrase": "^3.17.1"
   }
 }
