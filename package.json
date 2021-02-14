@@ -1,0 +1,30 @@
+{
+  "name": "Desafio-Seguran-a-Info",
+  "version": "1.0.0",
+  "description": "Projeto para a aula de Segurança de Informação. Controle de Acesso: identificação e autenticação",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "docker-compose up -d && nodemon --inspect=0.0.0.0 src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cristuker/Desafio-Seguran-a-Info.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Cristuker/Desafio-Seguran-a-Info/issues"
+  },
+  "homepage": "https://github.com/Cristuker/Desafio-Seguran-a-Info#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.7",
+    "pg": "^8.5.1",
+    "sucrase": "^3.17.1"
+  }
+}
