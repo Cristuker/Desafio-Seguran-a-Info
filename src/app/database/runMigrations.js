@@ -1,15 +1,9 @@
 import { createDb, migrate } from "postgres-migrations"
 import { resolve } from 'path';
 
-async function runMigrations() {
-  const dbConfig = {
-    database: "postgres",
-    user: "postgres",
-    password: "sEg#1234@!",
-    host: "localhost",
-    port: 5432,
-  }
+import { dbConfig } from '../config/dbConfig'
 
+async function runMigrations() {
   await createDb('postgres', {
     ...dbConfig,
     defaultDatabase: "postgres", // defaults to "postgres"

@@ -1,9 +1,10 @@
 import { Router } from 'express';
+import UserController from './app/controllers/UserController';
+import LoginController from './app/controllers/LoginController';
 
 const routes = Router();
 
-routes.post('/cadastro', (req,res) => {
-    return res.send('cadastro');
-});
+routes.post('/cadastro', UserController.create);
+routes.post('/login', LoginController.store);
 
 export default routes;
