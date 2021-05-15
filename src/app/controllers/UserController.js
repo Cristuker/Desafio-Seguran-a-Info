@@ -1,5 +1,10 @@
 import { generate } from "generate-password";
-import { createUser, findUser, updateUser } from "../services/UserService";
+import { 
+    createUser, 
+    findUser, 
+    updateUser, 
+    sendEmailTemp 
+} from "../services/";
 
 class UserController {
     async preCreate(req, res) {
@@ -21,7 +26,7 @@ class UserController {
             const { nome, email } = req.body;
 
             await createUser(nome, email, tempPassword);
-
+            await sendEmailTemp(nome, email, tempPassword)
             return res.status(201).json({
                 message: "Senha válida por 5 minutos...",
                 tempPassword: tempPassword,
@@ -46,20 +51,12 @@ class UserController {
             const actualTime = new Date();
             const actualHour = actualTime.getHours();
             const actualMinute =  actualTime.getMinutes();
-            // const mock = {
-            //     email: "cristian123105@gmail.com",
-            //     password: "-?DW%f;77i}",
-            //     createdAt: "2021-02-14T14:08:23.740Z",
-            // };
             // Data da senha temporaria
             const dateOfTempPassword = new Date(req.body.createdAt);
             const hourTempPass = dateOfTempPassword.getHours();
             const minuteTempPass = dateOfTempPassword.getMinutes();
             const diferenceInMinutes = actualMinute - minuteTempPass;
-            console.log(actualMinute - minuteTempPass)
-            console.log( minuteTempPass - actualMinute )
             const timeToNewPassIsValid = actualHour === hourTempPass && !(diferenceInMinutes > 5);
-            console.log(minuteTempPass, actualMinute)
 
             if(!timeToNewPassIsValid) {
                 return res.status(406).send('Tempo limite expirado!');

@@ -1,9 +1,9 @@
 - [ ] Cadastrar usuario
-   - [ ] Salvar usuario no banco
-   - [ ] Criar senha randomica
-   - [ ] Retornar um email com a senha e o usuario para ele acessar, com tempo determinado caso contrario é cancelado
+   - [x] Salvar usuario no banco
+   - [x] Criar senha randomica
+   - [x] Retornar um email com a senha e o usuario para ele acessar, com tempo determinado caso contrario é cancelado
    - [ ] Quando ele logar, o mesmo deve inserir uma nova senha(alfa numéricos (apresentar um campo com: senha baixa, média e alta complexidade).)
-   - [ ] Criptografar a nova senha antes de salvar
+   - [x] Criptografar a nova senha antes de salvar
 
 - [ ] Esqueci minha senha
     - [ ] Enviar por email uma senha novamente, sem limite de tempo. A senha não pode ser igual a anterior

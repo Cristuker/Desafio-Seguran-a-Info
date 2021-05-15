@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import routes from './routes';
+import { sendEmailTemp } from './app/services';
 
 const app = express();
 
@@ -16,5 +17,6 @@ if (process.env.NODE_ENV !== 'test') {
     console.log(`🏠 Server running on port: ${port}`);
   });
 }
+
 
 export default app;
