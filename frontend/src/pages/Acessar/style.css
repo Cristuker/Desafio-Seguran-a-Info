@@ -19,3 +19,12 @@ button {
     height: 25px;
     margin-top: 20px;
 }
+
+#showPass {
+    width: 15px;
+    height: 15px;
+}
+
+#passContainer {
+    margin-top: 15px;
+}
