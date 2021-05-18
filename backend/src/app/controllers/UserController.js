@@ -5,6 +5,7 @@ import {
     updateUser, 
     sendEmailTemp 
 } from "../services/";
+import { getCreatedAt } from "../services/UserService";
 
 class UserController {
     async preCreate(req, res) {
@@ -40,19 +41,20 @@ class UserController {
 
     async create(req, res) {
         try {
-            const requirements = ["email", "password", "createdAt"];
+            const requirements = ["usuario", "senha"];
             for (const property of requirements) {
                 if (!req.body[property]){
                     return res.status(400).send(`${property.charAt(0).toUpperCase() + property.slice(1, property.length)} is required!`);
                 }
             }
-            const { email, password } = req.body;
+            const { usuario, senha } = req.body;
+            const createdAt = await getCreatedAt(usuario);
             // Data atual
             const actualTime = new Date();
             const actualHour = actualTime.getHours();
             const actualMinute =  actualTime.getMinutes();
             // Data da senha temporaria
-            const dateOfTempPassword = new Date(req.body.createdAt);
+            const dateOfTempPassword = new Date(createdAt);
             const hourTempPass = dateOfTempPassword.getHours();
             const minuteTempPass = dateOfTempPassword.getMinutes();
             const diferenceInMinutes = actualMinute - minuteTempPass;
@@ -61,8 +63,8 @@ class UserController {
             if(!timeToNewPassIsValid) {
                 return res.status(406).send('Tempo limite expirado!');
             }
-            const user = await findUser(email);
-            await updateUser(user.id, password);
+            const user = await findUser(usuario);
+            await updateUser(user.id, senha);
             return res.status(200).send('Usuario atualizado com sucesso!');
         } catch (error) {
             console.error(error);

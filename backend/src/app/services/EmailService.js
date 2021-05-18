@@ -8,9 +8,11 @@ export const sendEmailTemp = async (nome, email, tempPassword) => {
           to: email, // Change to your recipient
           from: 'seg.info.2021.cristian@gmail.com',
           subject: 'Login temporário',
-          html:  `Abaixo o email e senha para Login temporário
-          Usuario: ${nome}
-          Senha temporária: ${tempPassword}`,
+          html:  `
+          </h2>Abaixo o email e senha para Login </h2>
+          <br/>
+          <strong>Usuario:</strong> ${nome} <br />
+          <strong>Senha temporária:</strong> ${tempPassword}`,
         }
         await sgMail
           .send(msg)

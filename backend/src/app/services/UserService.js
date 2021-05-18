@@ -10,10 +10,21 @@ export const createUser = async (name, email, password) => {
     }
 }
 
-export const findUser = async (email) => {
+export const findUser = async (usuario) => {
     try {
         connection.connect();
-        const result = await connection.query('select * from users where email = $1', [email]);
+        const result = await connection.query('select * from users where name = $1', [usuario]);
+        await connection.end();
+        return result.rows[0];
+    } catch(error) {
+        console.error(error);
+    }
+}
+
+export const getCreatedAt = async (usuario) => {
+    try {
+        connection.connect();
+        const result = await connection.query('select created_at from users where name = $1', [usuario]);
         await connection.end();
         return result.rows[0];
     } catch(error) {

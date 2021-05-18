@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "docker-compose up -d && nodemon --inspect=0.0.0.0 src/app.js",
-    "migrate": "docker-compose up -d && sucrase-node src/app/database/runMigrations.js"
+    "migrate": "docker-compose up -d && sucrase-node src/app/database/runMigrations.js",
+    "init": "nodemon --inspect=0.0.0.0 src/app.js"
   },
   "repository": {
     "type": "git",
