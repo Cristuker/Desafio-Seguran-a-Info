@@ -6,6 +6,7 @@ import {
     sendEmailTemp 
 } from "../services/";
 import { getCreatedAt } from "../services/UserService";
+import { passwordHash } from "../utils/passwordHash";
 
 class UserController {
     async preCreate(req, res) {
@@ -50,7 +51,7 @@ class UserController {
             const { usuario, senha } = req.body;
             const userExist = await findUser(usuario);
             if(!userExist) {
-                    return res.status(404).send(`User not found!`);
+                return res.status(404).send(`User not found!`);
             }
             const { created_at: createdAt } = await getCreatedAt(usuario);
             // Data atual
@@ -63,6 +64,7 @@ class UserController {
             const minuteTempPass = dateOfTempPassword.getMinutes();
             const diferenceInMinutes = actualMinute - minuteTempPass;
             const timeToNewPassIsValid = actualHour === hourTempPass && !(diferenceInMinutes > 5);
+            console.log(actualHour ,hourTempPass)
 
             if(!timeToNewPassIsValid) {
                 return res.status(406).send('Tempo limite expirado!');
@@ -70,6 +72,25 @@ class UserController {
             const user = await findUser(usuario);
             await updateUser(user.id, senha);
             return res.status(200).send('Usuario atualizado com sucesso!');
+        } catch (error) {
+            console.error(error);
+            return res.status(500).send('Internal server error.');
+        }
+    }
+
+    async updateSenha(req, res) {
+        try {
+            const requirements = ["usuario", "senha"];
+            for (const property of requirements) {
+                if (!req.body[property]){
+                    return res.status(400).send(`${property.charAt(0).toUpperCase() + property.slice(1, property.length)} is required!`);
+                }
+            }
+            const { usuario, senha } = req.body;
+
+            const { id } = await findUser(usuario);
+            const hash = await passwordHash(senha);
+            await updateUser(id, hash);
         } catch (error) {
             console.error(error);
             return res.status(500).send('Internal server error.');

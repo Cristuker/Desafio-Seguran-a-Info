@@ -1,6 +1,6 @@
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import React from 'react';
-import { Acessar, Cadastro, EsqueciSenha, Home } from './pages';
+import { Acessar, Cadastro, EsqueciSenha, Home, NovaSenha } from './pages';
 
 
 export default function Routes(){
@@ -11,6 +11,7 @@ export default function Routes(){
                 <Route path="/cadastro"  component={Cadastro} />
                 <Route path="/acessar"  component={Acessar} />
                 <Route path="/esqueci"  component={EsqueciSenha} />
+                <Route path="/nova"  component={NovaSenha} />
             </Switch>
         </BrowserRouter>
     );
