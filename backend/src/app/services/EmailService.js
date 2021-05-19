@@ -9,22 +9,19 @@ export const sendEmailTemp = async (nome, email, tempPassword) => {
           from: 'seg.info.2021.cristian@gmail.com',
           subject: 'Login temporário',
           html:  `
-          <h1>Login temprário</h1>
+          <h1>Login temporário</h1>
           <h2>Abaixo o email e senha para Login </h2>
           <br/>
           <strong>Usuario:</strong> ${nome} <br />
           <strong>Senha temporária:</strong> ${tempPassword}`,
         }
-        await sgMail
-          .send(msg)
+        await sgMail.send(msg)
           .then(() => {
             console.log('Email sent')
           })
           .catch((error) => {
             console.error(JSON.stringify(error, null, 2))
           });
-    
-
     } catch(e) {
         console.error(e);
     }

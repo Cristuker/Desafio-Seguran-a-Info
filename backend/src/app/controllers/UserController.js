@@ -48,7 +48,11 @@ class UserController {
                 }
             }
             const { usuario, senha } = req.body;
-            const createdAt = await getCreatedAt(usuario);
+            const userExist = await findUser(usuario);
+            if(!userExist) {
+                    return res.status(404).send(`User not found!`);
+            }
+            const { created_at: createdAt } = await getCreatedAt(usuario);
             // Data atual
             const actualTime = new Date();
             const actualHour = actualTime.getHours();
