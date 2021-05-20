@@ -1,8 +1,10 @@
 import { sendEmailTemp } from './EmailService'
-import { createUser, findUser, updateUser } from './UserService';
+import { createUser, findUser, updateUser, getCreatedAt, setTempPassword } from './UserService';
 export {
     createUser, 
     findUser, 
     updateUser, 
-    sendEmailTemp
+    sendEmailTemp,
+    getCreatedAt,
+    setTempPassword
 }

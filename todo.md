@@ -6,8 +6,10 @@
    - [x] Criptografar a nova senha antes de salvar
 
 - [ ] Esqueci minha senha
-    - [ ] Enviar por email uma senha novamente, sem limite de tempo. A senha não pode ser igual a anterior
-    - [ ] O sistema deverá expirar a senha depois de X tempo: não poderá ser a mesma senha anterior (hash identifica) o sistema deve apresentar campos "Senha atual" "Nova senha" e confirme [Nova Senha] Atenção: Todas as alterações que ocorrem no banco de dados, deverão ser mostradas, ao professor durante a apresentação
+    - [x] Enviar por email uma senha novamente, sem limite de tempo. A senha não pode ser igual a anterior.
+    - [ ] O sistema deverá expirar a senha depois de X tempo: não poderá ser a mesma senha anterior (hash identifica) o sistema deve apresentar campos "Senha atual" "Nova senha" e confirme [Nova Senha] 
+    
+    **Atenção: Todas as alterações que ocorrem no banco de dados, deverão ser mostradas, ao professor durante a apresentação**
 
 ### Telas
 

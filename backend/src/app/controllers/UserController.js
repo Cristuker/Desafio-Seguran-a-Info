@@ -3,9 +3,9 @@ import {
     createUser, 
     findUser, 
     updateUser, 
-    sendEmailTemp 
+    sendEmailTemp,getCreatedAt,
+    setTempPassword
 } from "../services/";
-import { getCreatedAt } from "../services/UserService";
 import { passwordHash } from "../utils/passwordHash";
 
 class UserController {
@@ -28,7 +28,7 @@ class UserController {
             const { nome, email } = req.body;
 
             await createUser(nome, email, tempPassword);
-            await sendEmailTemp(nome, email, tempPassword)
+            await sendEmailTemp(nome, email, tempPassword);
             return res.status(201).json({
                 message: "Senha válida por 5 minutos...",
                 tempPassword: tempPassword,
@@ -64,7 +64,6 @@ class UserController {
             const minuteTempPass = dateOfTempPassword.getMinutes();
             const diferenceInMinutes = actualMinute - minuteTempPass;
             const timeToNewPassIsValid = actualHour === hourTempPass && !(diferenceInMinutes > 5);
-            console.log(actualHour ,hourTempPass)
 
             if(!timeToNewPassIsValid) {
                 return res.status(406).send('Tempo limite expirado!');
@@ -91,6 +90,53 @@ class UserController {
             const { id } = await findUser(usuario);
             const hash = await passwordHash(senha);
             await updateUser(id, hash);
+            return res.status(200).send();
+        } catch (error) {
+            console.error(error);
+            return res.status(500).send('Internal server error.');
+        }
+    }
+
+    async forgotPassword(req, res) {
+        try {
+            const { usuario } = req.query;
+            const usuarioInfo = await findUser(usuario);
+            if(!usuarioInfo) {
+                return res.status(404).send(`User not found!`);
+            }
+            const tempPassword = generate({
+                length: 10,
+                lowercase: true,
+                uppercase: true,
+                symbols: true,
+            });
+    
+            await updateUser(usuario.id, tempPassword);
+            await sendEmailTemp(usuarioInfo.name, usuarioInfo.email, tempPassword);
+            return res.status(200).send();
+        } catch (error) {
+            console.error(error);
+            return res.status(500).send('Internal server error.');
+        }
+    }
+
+    async setForgotPass(req, res) {
+        try {
+            const { usuario } = req.query;
+            const usuarioInfo = await findUser(usuario);
+            if(!usuarioInfo) {
+                return res.status(404).send(`User not found!`);
+            }
+            const tempPassword = generate({
+                length: 10,
+                lowercase: true,
+                uppercase: true,
+                symbols: true,
+            });
+    
+            await updateUser(usuario.id, tempPassword);
+            await sendEmailTemp(usuarioInfo.name, usuarioInfo.email, tempPassword);
+            return res.status(200).send();
         } catch (error) {
             console.error(error);
             return res.status(500).send('Internal server error.');

@@ -3,13 +3,14 @@ import './style.css';
 import api from '../../services/api';
 
 
-export default function NovaSenha({ location }) {
+export default function NovaSenha({ location, history }) {
     const { usuario } = location.state;
     const [senha, setSenha] = useState('');
     const [forca, setForca] = useState(0);
     const [nivel, setNivel] = useState('');
     const [color, setColor] = useState('');
     const [type, setType] = useState('password');
+    const [ok, setOk] = useState(false);
 
 
     function verifica(value){
@@ -56,7 +57,12 @@ export default function NovaSenha({ location }) {
             usuario,
             senha
         });
-        console.log(response)
+        if(response.status === 200) {
+            setOk(true);
+            setTimeout(() => {
+                history.push('/');
+            },3000);
+        }
     }
     function handleShowPassword() {
         if (type === "password") {
@@ -78,6 +84,7 @@ export default function NovaSenha({ location }) {
                 </div>
                 <button disabled={forca <= 5}>Cadastrar</button>
             </form>
+            <span> { ok ? 'Senha alterarda com sucesso. Redirecionando...' : '' } </span>
         </main>
     )
 }
